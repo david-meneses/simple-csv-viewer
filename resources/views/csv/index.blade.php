@@ -13,6 +13,11 @@
 </form>
 
 @if($rows->count())
+<p>
+    <form method="GET" action="{{ route('csv.latest-download') }}">
+        <button type="submit">Descargar último registro TXT(JSON)</button>
+    </form>
+</p>
 <table border="1">
     <thead>
         <tr>

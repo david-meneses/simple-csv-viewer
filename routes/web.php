@@ -5,3 +5,4 @@ use App\Http\Controllers\CsvController;
 
 Route::get('/', [CsvController::class, 'index'])->name('csv.index');
 Route::post('/csv/upload', [CsvController::class, 'upload'])->name('csv.upload');
+Route::get('/csv/downloadLatestRecord', [CsvController::class, 'downloadLatestRecord'])->name('csv.latest-download');
