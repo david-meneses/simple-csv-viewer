@@ -34,12 +34,23 @@ class CsvController extends Controller
         return redirect()->route('csv.index');
     }
 
-    public function downloadLatestRecord()
+    public function downloadLatestRecord($format = 'json')
     {
         $row = CsvRow::orderBy('id', 'desc')->first();
-        // Verificar si se encontró un registro
 
-        abort_if(! $row, 404 , 'No registros encountrados');
+        abort_if(! $row, 404, 'No registros encontrados');
+
+        if ($format === 'xml') {
+            $xml = new \SimpleXMLElement('<?xml version="1.0"?><record></record>');
+
+            foreach ($row->data as $key => $value) {
+                $xml->addChild($key, htmlspecialchars($value ?? ''));
+            }
+
+            return response()->streamDownload(function () use ($xml) {
+                echo $xml->asXML();
+            }, 'latest-record.xml', ['Content-Type' => 'application/xml']);
+        }
 
         //Convertir el registro a formato JSON legible
         $json = json_encode($row->data, JSON_PRETTY_PRINT);
