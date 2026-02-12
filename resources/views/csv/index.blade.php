@@ -18,6 +18,11 @@
         <button type="submit">Descargar último registro TXT(JSON)</button>
     </form>
 </p>
+<p>
+    <form method="GET" action="{{ route('csv.latest-download', ['format' => 'xml']) }}">
+        <button type="submit">Descargar último registro TXT(XML)</button>
+    </form>
+</p>
 <table border="1">
     <thead>
         <tr>
