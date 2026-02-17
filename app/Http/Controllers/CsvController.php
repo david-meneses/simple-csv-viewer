@@ -23,7 +23,7 @@ class CsvController extends Controller
         $file = fopen($request->file('csv_file')->getRealPath(), 'r');
         $headers = fgetcsv($file);
 
-        while (($row = fgetcsv($file)) !== false) {
+        while (($row = fgetcsv($file)) !== false && (count($row) == count($headers))) {
             CsvRow::create([
                 'data' => array_combine($headers, $row),
             ]);

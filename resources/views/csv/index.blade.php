@@ -5,22 +5,23 @@
 </head>
 <body>
 
-<h1>Importar archivo CSV</h1>
+<h1>Import CSV File</h1>
 <form method="POST" action="{{ route('csv.upload') }}" enctype="multipart/form-data">
     @csrf
-    <input type="file" name="csv_file" required>
-    <button type="submit">Importar CSV</button>
+    <input type="file" name="csv_file" required accept=".csv">
+    <br>
+    <button type="submit">Submit</button>
 </form>
 
 @if($rows->count())
 <p>
     <form method="GET" action="{{ route('csv.latest-download') }}">
-        <button type="submit">Descargar último registro TXT(JSON)</button>
+        <button type="submit">Download Latest Record TXT(JSON)</button>
     </form>
 </p>
 <p>
     <form method="GET" action="{{ route('csv.latest-download', ['format' => 'xml']) }}">
-        <button type="submit">Descargar último registro TXT(XML)</button>
+        <button type="submit">Download Latest Record TXT(XML)</button>
     </form>
 </p>
 <table border="1">
