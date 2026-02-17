@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CsvController;
+use App\Http\Controllers\CsvApiController;
 
 Route::get('/', [CsvController::class, 'index'])->name('csv.index');
 Route::post('/csv/upload', [CsvController::class, 'upload'])->name('csv.upload');
