@@ -10,4 +10,6 @@ Route::get('/csv/downloadLatestRecord/{format?}', [CsvController::class, 'downlo
 //API
 Route::prefix('api')->group(function () {
     Route::get('/csv/count', [CsvApiController::class, 'count'])->name('csv.count');
+    Route::get('/csv/{id}', [CsvApiController::class, 'getById'])->name('csv.getById');
+    Route::get('/csv/list/{page_size}/{offset}', [CsvApiController::class, 'list'])->name('csv.list');
 });
