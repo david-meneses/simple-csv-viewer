@@ -1,0 +1,35 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: simple-csv-viewer-app
+    container_name: csv-app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+      - vendor_data:/var/www/vendor
+    networks:
+      - csv-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: csv-nginx
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www
+      - ./docker-config/nginx:/etc/nginx/conf.d/
+    networks:
+      - csv-network
+
+networks:
+  csv-network:
+    driver: bridge
+
+volumes:
+  vendor_data:
