@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CsvRow;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class CsvController extends Controller
@@ -32,6 +33,20 @@ class CsvController extends Controller
         fclose($file);
 
         return redirect()->route('csv.index');
+    }
+
+    public function downloadPdf()
+    {
+        $rows = CsvRow::all();
+
+        abort_if($rows->isEmpty(), 404, 'No registros encontrados');
+
+        $headers = array_keys($rows->first()->data);
+
+        $pdf = Pdf::loadView('csv.pdf', compact('rows', 'headers'))
+            ->setPaper('a4', 'landscape');
+
+        return $pdf->download('registros.pdf');
     }
 
     public function downloadLatestRecord($format = 'json')

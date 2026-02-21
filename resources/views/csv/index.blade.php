@@ -24,6 +24,11 @@
         <button type="submit">Download Latest Record TXT(XML)</button>
     </form>
 </p>
+<p>
+    <a href="{{ route('csv.download-pdf') }}">
+        <button type="button">Export PDF</button>
+    </a>
+</p>
 <table border="1">
     <thead>
         <tr>
